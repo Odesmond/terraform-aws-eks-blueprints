@@ -131,3 +131,17 @@ module "vpc_endpoints" {
 
   tags = local.tags
 }
+    
+  resource "aws_instance" "bastion_host" {
+  ami           = "AMI_ID"   # Specify the appropriate AMI ID for the bastion host
+  instance_type = "t3.micro" # Use the desired instance type
+
+  key_name               = "your-key-pair"    # Replace with your key pair name
+  vpc_security_group_ids = [module.vpc_endpoints_sg.security_group_id]
+  subnet_id              = module.vpc.public_subnets[0]
+
+  tags = local.tags
+}
+ 
+    
+    
